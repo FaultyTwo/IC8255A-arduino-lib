@@ -1,0 +1,22 @@
+{
+  "name": "IC8255A-arduino-lib",
+  "keywords": "arduino,port expander,interface,general purpose i/o",
+  "description": "An Arduino for 8255A, Programmable Peripheral Interface",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/FaultyTwo/"
+  },
+  "authors": 
+  [
+    {
+      "name": "Chawin 'Faultytwo' Treesugol",
+      "email": "-",
+      "url": "https://github.com/FaultyTwo",
+      "maintainer": true
+    }
+  ],
+  "version": "1.0",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
