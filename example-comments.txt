@@ -1,9 +1,0 @@
-/* FILENAME
- * Author: Chawin 'FaultyTwo' Treesugol
- * Date: DATE
- * FROM: LINK TO GITHUB REPO
- * 
- * Desc: blah blah blah
- * 
- * Enjoy!
- */

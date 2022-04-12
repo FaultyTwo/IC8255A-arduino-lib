@@ -1,5 +1,5 @@
 # IC_8255A
-An Arduino library for Intel 8255A, Programmable Peripheal Interface.
+An Arduino library for Intel 8255A, Programmable Peripheral Interface.
 
 For technical details, please refer to the [datasheet.](https://pdf1.alldatasheet.com/datasheet-pdf/view/66100/INTEL/8255A.html)
 
@@ -7,7 +7,6 @@ For technical details, please refer to the [datasheet.](https://pdf1.alldatashee
 IC_8255A is an Arduino library for contorlling Intel 8255A, Programmable Peripheal Interface.
 
 This library supports mode 0, mode 1 and mode 2 of Intel 8255A, both reading and writing.<br>
-This library also came with an optional header file called '8255a_constants.h', which contains necessary directives to use with the library.
 
 ## How To Use The Library
 ### Creating an object
@@ -41,21 +40,21 @@ It's recommended to use pin_config method before mode_config method when configu
 An example of configuring 8255A to make all of its ports write is as following:
 ```C
 void setup(){
-	ppi.pin_config(0x00); ; 0 = write, 1 = read
-	ppi.mode_config(0x80); ; setting all 8255a ports to write
-	ppi.write('A',0xFF); ; writing '0xFF' to 8255A
-	ppi.write('B',0x0F); ; writing '0x0F' to 8255A
-	ppi.write('C',0xF0); ; writing '0xF0' to 8255A
+	ppi.pin_config(0x00); // 0 = write, 1 = read
+	ppi.mode_config(0x80); // setting all 8255a ports to write
+	ppi.write('A',0xFF); // writing '0xFF' to 8255A
+	ppi.write('B',0x0F); // writing '0x0F' to 8255A
+	ppi.write('C',0xF0); // writing '0xF0' to 8255A
 }
 ```
 
 An example of reading data from 8255A is as following:
 ```C
 void setup(){
-	ppi.pin_config(0x00); ; we need to config the 8255a pin first
-	ppi.mode_config(0x82); ; setting port b to read only
-	ppi.pin_config(0xFF); ; configuring all Arduino port to read
-	int portb_val = ppi.read('B'); ; read value from port B
+	ppi.pin_config(0x00); // we need to config the 8255a pin first
+	ppi.mode_config(0x82); // setting port b to read only
+	ppi.pin_config(0xFF); // configuring all Arduino port to read
+	int portb_val = ppi.read('B'); // read value from port B
 }
 ```
 
@@ -98,23 +97,23 @@ void pin_config(uint8_t data);
 Configure the Arduino pins that are currently using as data pins.<br>
 This method works similar to how you would configuring data direction for a microprocessor IC.
 
+For example:
+```C
+ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
+```
+
 |Pin Mode| Logic|
 |--------|------|
 |  READ  |   1  |
 |  WRITE |   0  |
 
-For example:
-```C
-	ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
-```
-
 ```C
 void write(char port, uint8_t data);
 ```
-Write data to the port.
+Write a byte data to the port.
 
 ```C
-void write(bool upper, uint8_t data);
+void write_c(bool upper, uint8_t data);
 ```
 Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3).<br>
 Recommended using this method when your 8255A was configured for port C to use different data directions.
@@ -122,7 +121,7 @@ Recommended using this method when your 8255A was configured for port C to use d
 ```C
 void write_pin(char port, uint8_t pin, bool data);
 ```
-Write either HIGH or LOW to a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
+Write either logic 1 or logic 0 to a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
 
 **^If 'pin' parameter value is greater than 7, this method won't write the data.**
 
