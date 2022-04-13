@@ -4,11 +4,12 @@ An Arduino library for Intel 8255A, Programmable Peripheral Interface.
 For technical details, please refer to the [datasheet.](https://pdf1.alldatasheet.com/datasheet-pdf/view/66100/INTEL/8255A.html)
 
 ## About
-IC_8255A is an Arduino library for contorlling Intel 8255A, Programmable Peripheal Interface.
+IC_8255A is an Arduino library for controlling Intel 8255A, Programmable Peripheal Interface.
 
-This library supports mode 0, mode 1 and mode 2 of Intel 8255A, both reading and writing.<br>
+This library supports mode 0, mode 1 and mode 2, in both reading and writing functionality.<br>
 
 ## How To Use The Library
+
 ### Creating an object
 To save you from headache, the object uses two arrays as its arguments for setting Arduino pins.
 
@@ -95,17 +96,21 @@ For the other modes, please refer to the datasheet.
 void pin_config(uint8_t data);
 ```
 Configure the Arduino pins that are currently using as data pins.<br>
-This method works similar to how you would configuring data direction for a microprocessor IC.
+This method works similar to how you would configuring data direction for a microprocessor IC where logic '1' is read, and logic '0' is write.
 
 For example:
 ```C
 ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
 ```
 
-|Pin Mode| Logic|
-|--------|------|
-|  READ  |   1  |
-|  WRITE |   0  |
+#### 'port' Parameter Table
+|'port' value  |Port|
+|--------------|----|
+| 'a' or 'A'   |  A |
+| 'b' or 'B'   |  B |
+| 'c' or 'C'   |  C |
+
+**^Choosing non-existing ports won't write or read the data.**
 
 ```C
 void write(char port, uint8_t data);
@@ -128,7 +133,7 @@ Write either logic 1 or logic 0 to a specific 8255A pin. Starting from zero to s
 ```C
 int read(char port);
 ```
-Read a value from a 8255A port.
+Read a byte data from a 8255A port.
 
 ```C
 int read_c(bool upper);
