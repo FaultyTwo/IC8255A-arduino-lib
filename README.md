@@ -103,7 +103,7 @@ For example:
 ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
 ```
 
-#### 'port' Parameter Table
+### 'port' Parameter Table
 |'port' value  |Port|
 |--------------|----|
 | 'a' or 'A'   |  A |
@@ -121,7 +121,7 @@ Write a byte data to the port.
 void write_c(bool upper, uint8_t data);
 ```
 Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3).<br>
-Recommended using this method when your 8255A was configured for port C to use different data directions.
+Recommended using this method when upper and lower ports of port C use different data directions.
 
 ```C
 void write_pin(char port, uint8_t pin, bool data);
@@ -138,7 +138,8 @@ Read a byte data from a 8255A port.
 ```C
 int read_c(bool upper);
 ```
-Read a nibble either from lower and upper ports of port C.
+Read a nibble either from lower and upper ports of port C.<br>
+Recommended using this method when upper and lower ports of port C use different data directions.
 
 ```C
 int read_pin(char port, uint8_t pin);
