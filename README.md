@@ -100,7 +100,7 @@ This method works similar to how you would configuring data direction for a micr
 
 For example:
 ```C
-ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
+ppi.pin_config(0b01001001); // Set pin D0, D3 and D6 to read, else to write (from lsb to msb)
 ```
 
 ### 'port' Parameter Table
@@ -110,42 +110,44 @@ ppi.pin_config(0b00001111); // Set pin D0 - D3 to write, and pin D4 - D7 to read
 | 'b' or 'B'   |  B |
 | 'c' or 'C'   |  C |
 
-**^Choosing non-existing ports won't write or read the data.**
-
 ```C
 void write(char port, uint8_t data);
 ```
 Write a byte data to the port.
 
+**^Choosing non-existing ports won't write the data**
+
 ```C
 void write_c(bool upper, uint8_t data);
 ```
 Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3).<br>
-Recommended using this method when upper and lower ports of port C use different data directions.
+Recommended using this method when upper and lower ports of port C use opposite data directions.
 
 ```C
 void write_pin(char port, uint8_t pin, bool data);
 ```
-Write either logic 1 or logic 0 to a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
+Write a data to a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
 
-**^If 'pin' parameter value is greater than 7, this method won't write the data.**
+**^If 'pin' parameter value is greater than 7 or choosing non-existent ports, this method won't write the data.**
 
 ```C
 int read(char port);
 ```
 Read a byte data from a 8255A port.
 
+**^Choosing non-existing ports will return as -1.**
+
 ```C
 int read_c(bool upper);
 ```
 Read a nibble either from lower and upper ports of port C.<br>
-Recommended using this method when upper and lower ports of port C use different data directions.
+Recommended using this method when upper and lower ports of port C use opposite data directions.
 
 ```C
 int read_pin(char port, uint8_t pin);
 ```
-Read a value from a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
+Read a data from a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
 
-**^If 'pin' parameter value is greater than 7, this method will return as -1.**
+**^If 'pin' parameter value is greater than 7 or choosing non-existent ports, this method will return as -1.**
 
 
