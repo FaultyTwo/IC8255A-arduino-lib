@@ -34,11 +34,11 @@ IC_8255A ppi(dataio,reg);
 This library has 2 important main methods: pin_config and mode_config.
 
 pin_config is a method for configuring your Arduino pins (input or output).<br>
-mode_config is a method for configuring your 8255A pins (port a input, port b output, mode 1, mode 2 .etc .etc)
+mode_config is a method for configuring your 8255A ports (Ex. port a input, port b output, mode 1, mode 2 .etc .etc)
 
-It's recommended to use pin_config method before mode_config method when configuring 8255A ports to make sure your Arduino ports doesn't have any errors when reading or writing.
+It's recommended to use pin_config method before mode_config method when configuring 8255A ports to make sure your Arduino pins doesn't have any errors when reading or writing.
 
-An example of configuring 8255A to make all of its ports write is as following:
+An example of configuring 8255A to make a set of ports work in write mode is as following:
 ```C
 void setup(){
 	ppi.pin_config(0x00); // 0 = write, 1 = read
@@ -49,7 +49,7 @@ void setup(){
 }
 ```
 
-An example of reading data from 8255A is as following:
+An example of configuring 8255A to a set of ports work in read mode is as following:
 ```C
 void setup(){
 	ppi.pin_config(0x00); // we need to config the 8255a pin first
@@ -96,7 +96,7 @@ For the other modes, please refer to the datasheet.
 void pin_config(uint8_t data);
 ```
 Configure the Arduino pins that are currently using as data pins.<br>
-This method works similar to how you would configuring data direction for a microprocessor IC where logic '1' is read, and logic '0' is write.
+This method works similarly to how you would configure data directions for a microprocessor IC's I/O ports where logic '1' is read, and logic '0' is write.
 
 For example:
 ```C
@@ -113,15 +113,15 @@ ppi.pin_config(0b01001001); // Set pin D0, D3 and D6 to read, else to write (fro
 ```C
 void write(char port, uint8_t data);
 ```
-Write a byte data to the port.
+Write a byte data to a port.
 
 **^Choosing non-existing ports won't write the data**
 
 ```C
 void write_c(bool upper, uint8_t data);
 ```
-Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3).<br>
-Recommended using this method when upper and lower ports of port C use opposite data directions.
+Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3) port of port C.<br>
+Recommended using this method when upper and lower ports of port C use opposite data directions to each other.
 
 ```C
 void write_pin(char port, uint8_t pin, bool data);
@@ -133,15 +133,15 @@ Write a data to a specific 8255A pin. Starting from zero to seven (accordingly t
 ```C
 int read(char port);
 ```
-Read a byte data from a 8255A port.
+Read a byte data from a port.
 
 **^Choosing non-existing ports will return as -1.**
 
 ```C
 int read_c(bool upper);
 ```
-Read a nibble either from lower and upper ports of port C.<br>
-Recommended using this method when upper and lower ports of port C use opposite data directions.
+Read a nibble either from (PC4 to PC7) or lower (PC0 to PC3) port of port C.<br>
+Recommended using this method when upper and lower ports of port C use opposite data directions to each other.
 
 ```C
 int read_pin(char port, uint8_t pin);
