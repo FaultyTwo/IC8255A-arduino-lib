@@ -14,7 +14,7 @@ This library supports mode 0, mode 1 and mode 2, in both reading and writing fun
 To save you from headache, the object uses two arrays as its arguments for setting Arduino pins.
 
 First array contains the pin number of Arduino that are connected to D0-D7 pins of 8255A in order. The array size must equal to eight.<br>
-Second array contains the pin number of arduino that are connected to a0, a1, ~wr and ~cs in order. The array size must equal to four.
+Second array contains the pin number of Arduino that are connected to a0, a1, ~wr and ~cs in order. The array size must equal to four.
 
 Example:
 ```C
@@ -38,7 +38,7 @@ mode_config is a method for configuring your 8255A ports (Ex. port a input, port
 
 It's recommended to use pin_config method before mode_config method when configuring 8255A ports to make sure your Arduino pins doesn't have any errors when reading or writing.
 
-An example of configuring 8255A to make a set of ports work in write mode is as following:
+An example of configuring 8255A to set a port to work in write mode:
 ```C
 void setup(){
 	ppi.pin_config(0x00); // 0 = write, 1 = read
@@ -49,7 +49,7 @@ void setup(){
 }
 ```
 
-An example of configuring 8255A to a set of ports work in read mode is as following:
+An example of configuring 8255A to set a port to work in read mode:
 ```C
 void setup(){
 	ppi.pin_config(0x00); // we need to config the 8255a pin first
