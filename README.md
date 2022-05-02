@@ -121,7 +121,7 @@ Write a byte data to a port.
 void write_c(bool upper, uint8_t data);
 ```
 Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3) port of port C.<br>
-Recommended using this method when upper and lower ports of port C use opposite data directions to each other.
+Recommend using this method when upper and lower ports of port C use opposite data directions to each other.
 
 ```C
 void write_pin(char port, uint8_t pin, bool data);
@@ -141,7 +141,7 @@ Read a byte data from a port.
 int read_c(bool upper);
 ```
 Read a nibble either from (PC4 to PC7) or lower (PC0 to PC3) port of port C.<br>
-Recommended using this method when upper and lower ports of port C use opposite data directions to each other.
+Recommend using this method when upper and lower ports of port C use opposite data directions to each other.
 
 ```C
 int read_pin(char port, uint8_t pin);
