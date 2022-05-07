@@ -30,6 +30,8 @@ After that, create an object of the library. Its input arguments should be those
 IC_8255A ppi(dataio,reg);
 ```
 
+**^If this library doesn't work, make sure ~cs pin is connected to the ground.**
+
 ### Using the methods
 This library has 2 important main methods: pin_config and mode_config.
 
