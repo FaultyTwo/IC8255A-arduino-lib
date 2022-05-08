@@ -46,14 +46,13 @@ void loop() {
   }
   shift = 0xFF;
   count = 0;
-  for(int i = 0; i < 25; i++){
+  for(int i = 0; i < 24; i++){
       switch(i){
         case 8:
         case 16:
           ppi.write(port[count],0x00);
           count++;
           shift = 0xFF;
-          break;
       }
       ppi.write(port[count],shift);
       shift <<= 1;

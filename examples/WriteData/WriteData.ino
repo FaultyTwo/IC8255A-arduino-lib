@@ -6,9 +6,9 @@
  * Desc: This sketch allows Arduino to control 8255A
  * through UART communication by sending in data like this:
  * "*port**value*"
- * Example. A08 -> Send number 8 to port A
- * B55 -> Send number 55 to port B
- * C128 -> Send number 128 to port C
+ * Example. A08 -> Send value 8 to port A
+ * B55 -> Send value 55 to port B
+ * C128 -> Send value 128 to port C
  * .etc .etc
  * 
  * Or just bring up Serial Monitor and type in.

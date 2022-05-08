@@ -5,7 +5,7 @@
  * 
  * Desc: An example usage of read functionality of 8255A
  * In this sketch. Pin A0 is connected to a button or a trigger.
- * When A0 goes hard, it reads the data from port A and display
+ * When A0 goes HIGH, it reads the data from port A and display
  * the value in Serial Monitor.
  * 
  * Enjoy!
