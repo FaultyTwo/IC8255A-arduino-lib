@@ -149,8 +149,6 @@ int read_c(bool upper);
 ```
 Read a nibble either from (PC4 to PC7) or lower (PC0 to PC3) pins of port C.<br>
 
-**^Argument value for 'data' parameter should be in range of 0 to 15.**
-
 ```C
 int read_pin(char port, uint8_t pin);
 ```
