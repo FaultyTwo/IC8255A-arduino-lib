@@ -11,7 +11,7 @@ This library supports all modes offered by 8255A, in both reading and writing fu
 ## How To Use The Library
 
 ### Creating an object
-To save you from headache, the object uses two arrays as its arguments for setting Arduino pins.
+To save you from headache, the object requires two int array arguments to set everything up correctly.
 
 First array contains the pin number of Arduino that are connected to D0-D7 pins of 8255A in order. The array size must equal to eight.
 
@@ -25,16 +25,15 @@ int dataio[8] = {3,4,5,6,7,8,9,10};
 int reg[4] = {11,12,13,14};
 ```
 
-After that, create an object of the library. Its parameters should be those arrays you have created.
+After that, create an object of the library by parsing both arrays to its argument.
 ```C
 // data pins, then control pins
 IC_8255A ppi(dataio,reg);
 ```
-
-**^If this library doesn't work, make sure ~cs pin is connected to the ground.**
+**^If this library doesn't work, make sure ~cs pin is connected to the ground or logic 0.**
 
 ### Using the methods
-This library has 2 important main methods: pin_config and mode_config.
+This library has 2 important main methods: **pin_config** and **mode_config.**
 
 'pin_config' is a method for configuring your Arduino pins mode (INPUT or OUTPUT).
 
@@ -57,7 +56,7 @@ void setup(){
 An example sketch of configuring 8255A to set a port to work in read mode:
 ```C
 void setup(){
-	ppi.pin_config(0x00); // we need to config the 8255a pin first
+	ppi.pin_config(0x00); // we need to configure the 8255a pin first
 	ppi.mode_config(0x82); // setting port b to read only
 	ppi.pin_config(0xFF); // configuring all Arduino port to read
 	int portb_val = ppi.read('B'); // read value from port B then store it for further usage.
@@ -102,12 +101,19 @@ For the other modes, please refer to the datasheet.
 void pin_config(uint8_t data);
 ```
 Configure the Arduino pins that are currently being used as data pins.<br>
-This method works similarly to how you would configure data directions for a microprocessor IC's I/O ports where logic '1' is read, and logic '0' is write.
+This method works similar to how you would configure data directions for a microprocessor IC's I/O ports where logic '1' is read, and logic '0' is write.
 
 For example:
 ```C
 ppi.pin_config(0b01001001); // Set pin D0, D3 and D6 to read, else to write (from lsb to msb)
 ```
+
+```C
+void write(char port, uint8_t data);
+```
+Write a byte data to a port.
+
+**^Choosing non-existing ports won't write the data.**
 
 ### 'port' Parameter Table
 |'port' value  |Port|
@@ -116,24 +122,19 @@ ppi.pin_config(0b01001001); // Set pin D0, D3 and D6 to read, else to write (fro
 | 'b' or 'B'   |  B |
 | 'c' or 'C'   |  C |
 
-```C
-void write(char port, uint8_t data);
-```
-Write a byte data to a port.
-
-**^Choosing non-existing ports won't write the data**
+**^This table applies to every  methods below too.**
 
 ```C
 void write_c(bool upper, uint8_t data);
 ```
-Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3) pins of port C.<br>
+Write a nibble to upper (PC4 to PC7) or lower (PC0 to PC3) pins of port C.
 
 **^Argument value for 'data' parameter should be in range of 0 to 15.**
 
 ```C
 void write_pin(char port, uint8_t pin, bool data);
 ```
-Write a boolean to a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
+Write a boolean to a specific 8255A pin. Starting from zero to seven (refer to data bus pin numbers of 8255A).
 
 **^If 'pin' parameter value is greater than 7 or choosing non-existent ports, this method won't write the data.**
 
@@ -147,13 +148,11 @@ Read a byte data from a port.
 ```C
 int read_c(bool upper);
 ```
-Read a nibble either from (PC4 to PC7) or lower (PC0 to PC3) pins of port C.<br>
+Read a nibble either from (PC4 to PC7) or lower (PC0 to PC3) pins of port C.
 
 ```C
 int read_pin(char port, uint8_t pin);
 ```
-Read a boolean from a specific 8255A pin. Starting from zero to seven (accordingly to data bus).
+Read a boolean from a specific 8255A pin. Starting from zero to seven (refer to data bus pin numbers of 8255A).
 
 **^If 'pin' parameter value is greater than 7 or choosing non-existent ports, this method will return as -1.**
-
-

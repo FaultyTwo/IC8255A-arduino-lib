@@ -16,7 +16,6 @@
 #define UPPER_C_READ 0xF0
 #define LOWER_C_READ 0x0F
 
-
 class IC_8255A{
   public: 
     // data = i/o pin, spr = i/o control
@@ -31,8 +30,6 @@ class IC_8255A{
     int read(char port);
     int read_c(bool upper);
     int read_pin(char port, uint8_t pin);
-    // mode b port c is funky, port a and b is still functioning as mode a
-    // mode c port c is funky, port a is bi-directional, port b is unused
   private:
     int iodata[8]; //pin info
     int iocontrol[4]; //pin info
