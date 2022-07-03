@@ -21,7 +21,7 @@ Example:
 ```C
 // d0 = pin 3, d1 = pin 4, d2 = pin 5, ...
 int dataio[8] = {3,4,5,6,7,8,9,10};
-// a0 = pin 11, a1 = pin 12, ~wr = pin 13, ~cs = pin 14
+// a0 = pin 11, a1 = pin 12, ~wr = pin 13, ~rd = pin 14
 int reg[4] = {11,12,13,14};
 ```
 
